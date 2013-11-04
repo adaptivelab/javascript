@@ -1,4 +1,4 @@
-# Airbnb JavaScript Style Guide() {
+# Adaptive Lab JavaScript Style Guide() {
 
 *A mostly reasonable approach to JavaScript*
 
@@ -573,7 +573,7 @@
     }
     ```
 
-  - Use shortcuts.
+  - Use shortcuts where they make sense but always evaluate for the most accurate result.
 
     ```javascript
     // bad
@@ -597,6 +597,46 @@
     }
     ```
 
+### Type Checks
+
+Adapted from [jQuery Style Guide](http://contribute.jquery.org/style-guide/js/#type-checks)
+
+String
+`typeof object === 'string'`
+
+Number
+`typeof object === 'number'`
+
+Boolean
+`typeof object === 'boolean'`
+
+Object
+`typeof object === 'object'`
+
+Array
+`Array.isArray(object)`
+
+Element (for other nodeTypes see [MDN reference](https://developer.mozilla.org/en-US/docs/Web/API/Node.nodeType)
+`node.nodeType === 1`
+
+null
+`object === null`
+
+null or undefined
+`object == null`
+
+undefined:
+```javascript
+// Global Variables
+typeof variable === "undefined"
+
+// Local Variables
+variable === undefined
+
+// Properties
+object.prop === undefined
+```
+
   - For more information see [Truth Equality and JavaScript](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) by Angus Croll
 
     **[[⬆]](#TOC)**
@@ -604,23 +644,23 @@
 
 ## <a name='blocks'>Blocks</a>
 
-  - Use braces with all multi-line blocks.
+  - Always use braces and span with multiple-lines for `if/else/while/try/do` blocks.
 
     ```javascript
     // bad
     if (test)
       return false;
 
-    // good
+    // bad
     if (test) return false;
+
+    // bad
+    function() { return false; }
 
     // good
     if (test) {
       return false;
     }
-
-    // bad
-    function() { return false; }
 
     // good
     function() {
@@ -726,12 +766,12 @@
 
 ## <a name='whitespace'>Whitespace</a>
 
-  - Use soft tabs set to 2 spaces
+  - Use soft tabs set to 4 spaces
 
     ```javascript
     // bad
     function() {
-    ∙∙∙∙var name;
+    ∙∙var name;
     }
 
     // bad
@@ -741,7 +781,7 @@
 
     // good
     function() {
-    ∙∙var name;
+    ∙∙∙∙var name;
     }
     ```
   - Place 1 space before the leading brace.
@@ -1095,6 +1135,15 @@
     };
     ```
 
+  - Give instances singular names. Give arrays and collections plural names.
+
+    ```javascript
+    // good
+    var dogs = [];
+
+    var dog = dogs[1];
+    ```
+
     **[[⬆]](#TOC)**
 
 
@@ -1270,31 +1319,7 @@
 
 ## <a name='modules'>Modules</a>
 
-  - The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated. [Explanation](https://github.com/airbnb/javascript/issues/44#issuecomment-13063933)
-  - The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
-  - Add a method called noConflict() that sets the exported module to the previous version and returns this one.
-  - Always declare `'use strict';` at the top of the module.
-
-    ```javascript
-    // fancyInput/fancyInput.js
-
-    !function(global) {
-      'use strict';
-
-      var previousFancyInput = global.FancyInput;
-
-      function FancyInput(options) {
-        this.options = options || {};
-      }
-
-      FancyInput.noConflict = function noConflict() {
-        global.FancyInput = previousFancyInput;
-        return FancyInput;
-      };
-
-      global.FancyInput = FancyInput;
-    }(this);
-    ```
+  - TBC, for now look at the examples in [idomatic.js](https://github.com/rwaldron/idiomatic.js/#practical) for guidance.
 
     **[[⬆]](#TOC)**
 
